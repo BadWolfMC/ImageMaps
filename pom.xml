@@ -43,7 +43,9 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>clcore</artifactId>
       <version>0.5.0</version>
+      <type>jar</type>
       <scope>compile</scope>
+      <url>${basedir}/src/main/resources/clcore-0.5.0-20210814.230245-12.jar</url>
       <exclusions>
         <exclusion>
           <artifactId>*</artifactId>
