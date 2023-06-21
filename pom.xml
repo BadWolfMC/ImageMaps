@@ -44,6 +44,7 @@
       <artifactId>clcore</artifactId>
       <version>0.5.0</version>
       <scope>system</scope>
+      <systemPath>${basedir}/src/main/resources/clcore-0.5.0-20210814.230245-12.jar</systemPath>
       <exclusions>
         <exclusion>
           <artifactId>*</artifactId>
