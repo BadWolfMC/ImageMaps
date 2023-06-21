@@ -25,6 +25,12 @@
       <id>paper-repo</id>
       <url>https://papermc.io/repo/repository/maven-public</url>
     </repository>
+    <repository>
+        <id>clcore</id>
+        <url>https://mvnrepository.com/artifact/</url>
+    </repository>
+</repositories>
+
   </repositories>
 
   <dependencies>
@@ -36,9 +42,10 @@
     </dependency>
 
     <dependency>
-      <groupId>de.craftlancer</groupId>
+      <groupId>org.apache.commons</groupId>
       <artifactId>clcore</artifactId>
-      <version>0.4.0-SNAPSHOT</version>
+      <version>0.5.0</version>
+      <scope>compile</scope>
       <exclusions>
         <exclusion>
           <artifactId>*</artifactId>
