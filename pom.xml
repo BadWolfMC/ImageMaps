@@ -43,7 +43,7 @@
       <groupId>de.craftlancer</groupId>
       <artifactId>clcore</artifactId>
       <version>0.5.0</version>
-      <scope>compile</scope>
+      <scope>system</scope>
       <exclusions>
         <exclusion>
           <artifactId>*</artifactId>
