@@ -1,36 +1,54 @@
-# This workflow will build a Java project with Maven
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+name: Maven Build
 
-name: Java CI with Maven
-
-on:
-  push:
-    branches: [ master ]
+on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-    - name: Cache local Maven repository
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-    - name: Build with Maven
-      run: mvn -e package --file pom.xml
-    - name: Copy artifacts
-      run: mkdir -p ./out/ && cp -t ./out/ **/target/*.jar
-    - uses: actions/upload-artifact@v3
-      with:
-        name: Plugin JARs
-        path: out/
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - run: mvn --batch-mode --update-snapshots verify
+      - run: mkdir artifact && cp target/*.jar artifact
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Package
+          path: artifact
+
+      # Upload artifacts
+      - name: Upload Distributable Jar
+        id: upload-final
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: ./target/ImageMaps.jar
+
+  release:
+    name: Create Github Release
+    needs: [ build ]
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Create Release
+        id: create-release
+        uses: softprops/action-gh-release@v0.1.5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: ${{ env.VERSIONED_NAME }}
+          body: ${{ env.GENERATED_CHANGELOG }}
+          draft: true
+          prerelease: false
+          files: ./dist/ImageMaps.jar
