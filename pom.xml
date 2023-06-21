@@ -26,8 +26,8 @@
       <url>https://papermc.io/repo/repository/maven-public</url>
     </repository>
     <repository>
-        <id>clcore</id>
-        <url>https://mvnrepository.com/artifact/</url>
+      <id>clcore</id>
+      <url>${basedir}/src/main/resources/clcore-0.5.0-20210814.230245-12.jar</url>
     </repository>
   </repositories>
 
@@ -40,12 +40,10 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.commons</groupId>
+      <groupId>de.craftlancer</groupId>
       <artifactId>clcore</artifactId>
       <version>0.5.0</version>
-      <type>jar</type>
       <scope>compile</scope>
-      <url>${basedir}/src/main/resources/clcore-0.5.0-20210814.230245-12.jar</url>
       <exclusions>
         <exclusion>
           <artifactId>*</artifactId>
