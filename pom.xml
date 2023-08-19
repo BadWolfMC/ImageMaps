@@ -28,7 +28,7 @@
     <repository>
       <id>github</id>
       <name>GitHub CLCore Packages</name>
-      <url>https://maven.pkg.github.com/SydMontague/CLCore</url>
+      <url>https://maven.pkg.github.com/mercurialmusic/CLCore</url>
     </repository>
     <repository>
       <id>jitpack.io</id>
